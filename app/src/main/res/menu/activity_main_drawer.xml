@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/nav_home" />
+        <item
+            android:id="@+id/nav_free_apps"
+            android:icon="@drawable/ic_bubble_chart_black_24dp"
+            android:title="@string/nav_free_apps"/>
+        <item
+            android:id="@+id/nav_paid_apps"
+            android:icon="@drawable/ic_payment_black_24dp"
+            android:title="@string/nav_paid_apps" />
+
+        <item
+            android:id="@+id/nav_songs"
+            android:icon="@drawable/ic_music_note_black_24dp"
+            android:title="@string/nav_songs" />
+
+        <item
+            android:id="@+id/nav_album"
+            android:icon="@drawable/ic_album_black_24dp"
+            android:title="@string/nav_albums" />
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_about_us"
+                android:title="@string/nav_about_us" />
+            <item
+                android:id="@+id/nav_privacy_policy"
+                android:title="@string/privacy_policy" />
+        </menu>
+    </item>
+</menu>

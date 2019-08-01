@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/abeezee</item>
+        <item>@font/amiri</item>
+        <item>@font/asap</item>
+        <item>@font/averia_serif_libre_light</item>
+        <item>@font/convergence</item>
+        <item>@font/crete_round</item>
+        <item>@font/suez_one</item>
+        <item>@font/vast_shadow</item>
+        <item>@font/voltaire</item>
+    </array>
+</resources>
