@@ -13,15 +13,19 @@ import android.util.TypedValue;
 
 import com.example.android.top10downloadedappnew.R;
 import com.example.android.top10downloadedappnew.fragment.HomeFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
 
 
         // update the main content by replacing fragments
