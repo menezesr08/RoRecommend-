@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
@@ -37,8 +39,13 @@ import com.example.android.top10downloadedappnew.fragment.HomeFragment;
 import com.example.android.top10downloadedappnew.fragment.PaidFragment;
 import com.example.android.top10downloadedappnew.fragment.SongFragment;
 import com.github.ybq.android.spinkit.style.WanderingCubes;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -67,11 +74,11 @@ public class DataInitialization {
     private Document htmlDocument;
     private NavigationView navigationView;
     private static int navItemIndex = 0;
-    private static final String TAG_HOME = "home";
-    private static final String TAG_FREE_APPS = "free_apps";
-    private static final String TAG_PAID_APPS = "paid_apps";
-    private static final String TAG_SONGS = "songs";
-    private static final String TAG_ALBUMS = "albums";
+    private static final String TAG_HOME = "Home";
+    private static final String TAG_FREE_APPS = "Top Free Apps";
+    private static final String TAG_PAID_APPS = "Top Paid Apps";
+    private static final String TAG_SONGS = "Top Songs";
+    private static final String TAG_ALBUMS = "Top Albums";
     public static String CURRENT_TAG = TAG_HOME;
     private DrawerLayout drawer;
     private Handler mHandler;
@@ -82,6 +89,7 @@ public class DataInitialization {
     private DatabaseReference myRef;
     private static String userID;
     private WanderingCubes wanderingCubes;
+    private FirebaseUser firebaseUser;
 
     /** Setups the framework for the app
      *
@@ -109,6 +117,8 @@ public class DataInitialization {
         progressBar.setIndeterminateDrawable(wanderingCubes);
         progressBar.setVisibility(View.VISIBLE);
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
         //Retrieves a list of favourite apps which are saved in the system
         favourites = getArrayList(activityTitles[navItemIndex]);
 
@@ -119,16 +129,17 @@ public class DataInitialization {
 
 
         //Retrieves the User ID which is used to store information in the database.
-        userID = PreferenceManager.getDefaultSharedPreferences(fragmentActivity).getString("userID", "defaultStringIfNothingFound");
+        //userID = PreferenceManager.getDefaultSharedPreferences(fragmentActivity).getString("userID", "defaultStringIfNothingFound");
        //Creates an instance of the FireBase Database
-        database = FirebaseDatabase.getInstance();
-        //If the user does not have an ID (new user), a new ID is created.
-        if (userID.equalsIgnoreCase("defaultStringIfNothingFound")) {
-            Log.d(TAG, "DataInitialization: userID is null");
-            myRef = database.getReference();
-            userID = myRef.push().getKey();
-            PreferenceManager.getDefaultSharedPreferences(fragmentActivity).edit().putString("userID", userID).apply();
-        }
+
+
+//        //If the user does not have an ID (new user), a new ID is created.
+//        if (userID.equalsIgnoreCase("defaultStringIfNothingFound")) {
+//            Log.d(TAG, "DataInitialization: userID is null");
+//            myRef = database.getReference();
+//            userID = myRef.push().getKey();
+//            PreferenceManager.getDefaultSharedPreferences(fragmentActivity).edit().putString("userID", userID).apply();
+//        }
     }
 
     private void setUpActionBar() {
@@ -163,10 +174,10 @@ public class DataInitialization {
                     saveArrayList(activityTitles[navItemIndex]);
                 }
 
-
+                database = FirebaseDatabase.getInstance();
                 myRef = database.getReference(CURRENT_TAG);
                 Log.d(TAG, "onNavigationItemSelected: myref is: " + myRef.toString());
-                myRef.child(userID).setValue(htmlAppAdapter.getFavourites());
+                myRef.child(firebaseUser.getUid()).setValue(htmlAppAdapter.getFavourites());
 
 
                 //Check to see which item was being clicked and perform appropriate action
@@ -390,14 +401,29 @@ public class DataInitialization {
     }
 
     public ArrayList<HtmlApp> getArrayList(String key) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(m_fragmentActivity);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString(key, null);
-        Type type = new TypeToken<ArrayList<HtmlApp>>() {
-        }.getType();
-        ArrayList<HtmlApp> arrayList = gson.fromJson(json, type);
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(m_fragmentActivity);
+//        Gson gson = new Gson();
+//        String json = sharedPreferences.getString(key, null);
+//        Type type = new TypeToken<ArrayList<HtmlApp>>() {
+//        }.getType();
+//        ArrayList<HtmlApp> arrayList = gson.fromJson(json, type);
 
-        return arrayList;
+//get reference
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(key).child(firebaseUser.getUid());
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            // Todo: get data from database and convert to array list
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return null;
     }
 
 }
