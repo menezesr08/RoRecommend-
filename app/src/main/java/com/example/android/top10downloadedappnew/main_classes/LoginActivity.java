@@ -1,8 +1,8 @@
 package com.example.android.top10downloadedappnew.main_classes;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         String email, password;
-        email = emailTV.getText().toString();
+        email = emailTV.getText().toString().trim();
         password = passwordTV.getText().toString();
 
         if (TextUtils.isEmpty(email)) {

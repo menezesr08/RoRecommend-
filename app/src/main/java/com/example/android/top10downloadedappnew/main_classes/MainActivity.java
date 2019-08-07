@@ -4,10 +4,10 @@ package com.example.android.top10downloadedappnew.main_classes;
  * @author Rohan Menezes
  **/
 import android.content.res.Resources;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.TypedValue;
 

@@ -1,10 +1,11 @@
 package com.example.android.top10downloadedappnew.main_classes;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText emailTV, passwordTV;
     private Button regBtn;
     private ProgressBar progressBar;
+    private final String TAG = "RegistrationActivity";
     // Auth
     private FirebaseAuth mAuth;
 
@@ -31,6 +33,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         mAuth = FirebaseAuth.getInstance();
+        Log.d(TAG, "Firebase instance: " + mAuth.toString());
 
         initializeUI();
 
@@ -46,7 +49,7 @@ public class RegistrationActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         String email, password;
-        email = emailTV.getText().toString();
+        email = emailTV.getText().toString().trim();
         password = passwordTV.getText().toString();
 
         if (TextUtils.isEmpty(email)) {
