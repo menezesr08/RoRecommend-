@@ -19,17 +19,6 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        // TODO: Find a better way to keep a user logged in
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // User is signed in
-            Intent i = new Intent(HomeScreen.this, MainActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
-        } else {
-            // User is signed out
-            Log.d("HomeScreen", "onAuthStateChanged:signed_out");
-        }
         initializeUI();
 
         logInButton.setOnClickListener(new View.OnClickListener() {

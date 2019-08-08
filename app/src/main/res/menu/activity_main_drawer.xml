@@ -23,16 +23,12 @@
             android:id="@+id/nav_album"
             android:icon="@drawable/ic_album_black_24dp"
             android:title="@string/nav_albums" />
+
+        <item
+            android:id="@+id/signOut"
+            android:title="Sign Out" />
+
     </group>
 
-    <item android:title="Other">
-        <menu>
-            <item
-                android:id="@+id/nav_about_us"
-                android:title="@string/nav_about_us" />
-            <item
-                android:id="@+id/nav_privacy_policy"
-                android:title="@string/privacy_policy" />
-        </menu>
-    </item>
+
 </menu>

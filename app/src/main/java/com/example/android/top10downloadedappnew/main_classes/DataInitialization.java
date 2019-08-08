@@ -3,6 +3,8 @@ package com.example.android.top10downloadedappnew.main_classes;
  * Main class which contains the framework of the app and the main logic.
  * @author Rohan Menezes
  */
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -203,6 +205,12 @@ public class DataInitialization {
                         navItemIndex = 4;
                         CURRENT_TAG = TAG_ALBUMS;
                         break;
+                    case R.id.signOut:
+                        navItemIndex = 5;
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(m_fragmentActivity, LoginActivity.class);
+                        // fix sign out bug
+                        m_fragmentActivity.startActivity(intent);
                     default:
                         navItemIndex = 0;
                 }
