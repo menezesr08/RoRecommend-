@@ -4,6 +4,7 @@ package com.example.android.top10downloadedappnew.main_classes;
  * @author Rohan Menezes
  */
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -13,6 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
@@ -32,6 +34,7 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.android.top10downloadedappnew.R;
@@ -206,11 +209,10 @@ public class DataInitialization {
                         CURRENT_TAG = TAG_ALBUMS;
                         break;
                     case R.id.signOut:
+                        // TODO: Figure out why activity is switching when signing out
                         navItemIndex = 5;
-                        FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(m_fragmentActivity, LoginActivity.class);
-                        // fix sign out bug
-                        m_fragmentActivity.startActivity(intent);
+                        alertSignOut();
+                        break;
                     default:
                         navItemIndex = 0;
                 }
@@ -228,6 +230,54 @@ public class DataInitialization {
                 return true;
             }
         });
+
+    }
+
+    public void alertSignOut() {
+        AlertDialog.Builder alertDialog2 = new
+                AlertDialog.Builder(
+                m_fragmentActivity);
+
+        // Setting Dialog Title
+        alertDialog2.setTitle("Confirm SignOut");
+
+        // Setting Dialog Message
+        alertDialog2.setMessage("Are you sure you want to Signout?");
+
+        // Setting Positive "Yes" Btn
+        alertDialog2.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Write your code here to execute after dialog
+                        FirebaseAuth.getInstance().signOut();
+                        try {
+                            Intent i = new Intent(m_fragmentActivity,
+                                    HomeScreen.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            m_fragmentActivity.startActivity(i);
+                        } finally {
+                            m_fragmentActivity.finish();
+                        }
+
+                    }
+                });
+
+        // Setting Negative "NO" Btn
+        alertDialog2.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Write your code here to execute after dialog
+                        Toast.makeText(m_fragmentActivity.getApplicationContext(),
+                                "You clicked on NO", Toast.LENGTH_SHORT)
+                                .show();
+                        dialog.cancel();
+                    }
+                });
+
+        // Showing Alert Dialog
+        alertDialog2.show();
+
 
     }
     //Replaces the content frame with the selected fragment
