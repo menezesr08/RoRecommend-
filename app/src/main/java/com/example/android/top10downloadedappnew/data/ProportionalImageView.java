@@ -1,4 +1,4 @@
-package com.example.android.top10downloadedappnew.main_classes;
+package com.example.android.top10downloadedappnew.data;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

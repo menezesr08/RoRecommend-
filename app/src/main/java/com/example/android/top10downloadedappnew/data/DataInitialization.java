@@ -105,35 +105,14 @@ public class DataInitialization {
      */
     public DataInitialization(View view, FragmentActivity fragmentActivity) {
         this.view = view;
-        title_TextView = view.findViewById(R.id.love_music);
-        caption_TextView = view.findViewById(R.id.top);
-        recycler_View = view.findViewById(R.id.recycler_view);
         m_fragmentActivity = fragmentActivity;
-        toolbar = view.findViewById(R.id.toolbar);
-        imageView = view.findViewById(R.id.backdrop);
-        tabLayout = view.findViewById(R.id.tabs);
-        viewPager = view.findViewById(R.id.viewpager);
-        navigationView = view.findViewById(R.id.nav_view);
-        drawer = view.findViewById(R.id.drawer_layout);
-        mHandler = new Handler();
-        activityTitles = fragmentActivity.getResources().getStringArray(R.array.nav_item_activity_titles);
-//        setUpNavigationView();
-
-        progressBar = view.findViewById(R.id.spinner);
-        wanderingCubes = new WanderingCubes();
-        progressBar.setIndeterminateDrawable(wanderingCubes);
-        progressBar.setVisibility(View.VISIBLE);
-
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        //Retrieves a list of favourite apps which are saved in the system
-        favourites = getArrayList(activityTitles[navItemIndex]);
-
+        setupUI();
         setUpActionBar();
         setUpHeaderBackground();
         setUpNavigationView();
         setUpRecyclerView();
-
+        //Retrieves a list of favourite apps which are saved in the system
+        //favourites = getArrayList(activityTitles[navItemIndex]);
 
         //Retrieves the User ID which is used to store information in the database.
         //userID = PreferenceManager.getDefaultSharedPreferences(fragmentActivity).getString("userID", "defaultStringIfNothingFound");
@@ -147,6 +126,25 @@ public class DataInitialization {
 //            userID = myRef.push().getKey();
 //            PreferenceManager.getDefaultSharedPreferences(fragmentActivity).edit().putString("userID", userID).apply();
 //        }
+    }
+
+    private void setupUI() {
+
+        title_TextView = view.findViewById(R.id.love_music);
+        caption_TextView = view.findViewById(R.id.top);
+        recycler_View = view.findViewById(R.id.recycler_view);
+        toolbar = view.findViewById(R.id.toolbar);
+        imageView = view.findViewById(R.id.backdrop);
+        tabLayout = view.findViewById(R.id.tabs);
+        viewPager = view.findViewById(R.id.viewpager);
+        navigationView = view.findViewById(R.id.nav_view);
+        drawer = view.findViewById(R.id.drawer_layout);
+        mHandler = new Handler();
+        progressBar = view.findViewById(R.id.spinner);
+        wanderingCubes = new WanderingCubes();
+        progressBar.setIndeterminateDrawable(wanderingCubes);
+        progressBar.setVisibility(View.VISIBLE);
+        activityTitles = m_fragmentActivity.getResources().getStringArray(R.array.nav_item_activity_titles);
     }
 
     private void setUpActionBar() {

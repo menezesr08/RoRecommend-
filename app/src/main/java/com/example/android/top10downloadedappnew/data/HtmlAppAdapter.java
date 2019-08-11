@@ -1,4 +1,4 @@
-package com.example.android.top10downloadedappnew.main_classes;
+package com.example.android.top10downloadedappnew.data;
 /**
  * Displays HtmlApp Data
  * @author Rohan Menezes
@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.android.top10downloadedappnew.R;
+import com.example.android.top10downloadedappnew.models.HtmlApp;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
