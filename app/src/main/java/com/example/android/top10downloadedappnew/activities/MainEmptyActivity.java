@@ -1,10 +1,9 @@
-package com.example.android.top10downloadedappnew.main_classes;
+package com.example.android.top10downloadedappnew.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.android.top10downloadedappnew.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,7 +23,7 @@ public class MainEmptyActivity extends AppCompatActivity {
             activityIntent = new Intent(this, MainActivity.class);
         } else {
             // User is signed out
-            activityIntent = new Intent(this, HomeScreen.class);
+            activityIntent = new Intent(this, HomescreenActivity.class);
         }
         startActivity(activityIntent);
         finish();

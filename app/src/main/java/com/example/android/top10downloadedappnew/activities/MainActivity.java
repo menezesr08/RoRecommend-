@@ -1,4 +1,4 @@
-package com.example.android.top10downloadedappnew.main_classes;
+package com.example.android.top10downloadedappnew.activities;
 /**
  * This class calls the Home Fragment
  * @author Rohan Menezes
@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.TypedValue;
 
 import com.example.android.top10downloadedappnew.R;
-import com.example.android.top10downloadedappnew.fragment.HomeFragment;
+import com.example.android.top10downloadedappnew.fragments.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 

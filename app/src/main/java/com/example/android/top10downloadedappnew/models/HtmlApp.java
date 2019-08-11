@@ -1,4 +1,4 @@
-package com.example.android.top10downloadedappnew.main_classes;
+package com.example.android.top10downloadedappnew.models;
 
 /**
  * Represents an App based on HTML data

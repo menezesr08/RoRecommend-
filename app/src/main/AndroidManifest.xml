@@ -21,11 +21,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".main_classes.HomeScreen"></activity>
-        <activity android:name=".main_classes.LoginActivity" />
-        <activity android:name=".main_classes.RegistrationActivity" />
-        <activity android:name=".main_classes.MainActivity" />
-        <activity android:name=".main_classes.MainEmptyActivity">
+        <activity android:name=".activities.HomescreenActivity"></activity>
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.RegistrationActivity" />
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.MainEmptyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEARCH" />

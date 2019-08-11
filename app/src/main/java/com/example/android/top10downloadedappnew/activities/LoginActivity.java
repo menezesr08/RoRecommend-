@@ -1,11 +1,10 @@
-package com.example.android.top10downloadedappnew.main_classes;
+package com.example.android.top10downloadedappnew.activities;
 
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,34 +17,32 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class RegistrationActivity extends AppCompatActivity {
-    // Ui elements
+public class LoginActivity extends AppCompatActivity {
     private EditText emailTV, passwordTV;
-    private Button regBtn;
+    private Button loginBtn;
     private ProgressBar progressBar;
-    private final String TAG = "RegistrationActivity";
-    // Auth
+
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-        Log.d(TAG, "Firebase instance: " + mAuth.toString());
 
         initializeUI();
 
-        regBtn.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerNewUser();
+                loginUserAccount();
             }
         });
 
     }
-    private void registerNewUser() {
+
+    private void loginUserAccount() {
         progressBar.setVisibility(View.VISIBLE);
 
         String email, password;
@@ -61,19 +58,19 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
 
-                            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
                         else {
-                            Toast.makeText(getApplicationContext(), "Registration failed! Please try again later", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Login failed! Please try again later", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
@@ -83,7 +80,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private void initializeUI() {
         emailTV = findViewById(R.id.email);
         passwordTV = findViewById(R.id.password);
-        regBtn = findViewById(R.id.register);
+
+        loginBtn = findViewById(R.id.login);
         progressBar = findViewById(R.id.progressBar);
     }
 }

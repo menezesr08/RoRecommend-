@@ -1,9 +1,11 @@
-package com.example.android.top10downloadedappnew.main_classes;
+package com.example.android.top10downloadedappnew.data;
 /**
  * Parses the HTML data and retrieves relevant information.
  *
  * @author Rohan Menezes
  */
+
+import com.example.android.top10downloadedappnew.models.HtmlApp;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

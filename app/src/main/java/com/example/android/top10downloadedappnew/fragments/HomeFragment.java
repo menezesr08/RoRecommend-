@@ -1,4 +1,4 @@
-package com.example.android.top10downloadedappnew.fragment;
+package com.example.android.top10downloadedappnew.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.top10downloadedappnew.R;
-import com.example.android.top10downloadedappnew.main_classes.DataInitialization;
+import com.example.android.top10downloadedappnew.data.DataInitialization;
 
 /**
  * A simple {@link Fragment} subclass.

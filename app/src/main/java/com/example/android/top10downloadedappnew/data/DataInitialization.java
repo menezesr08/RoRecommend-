@@ -1,4 +1,4 @@
-package com.example.android.top10downloadedappnew.main_classes;
+package com.example.android.top10downloadedappnew.data;
 /**
  * Main class which contains the framework of the app and the main logic.
  * @author Rohan Menezes
@@ -10,6 +10,10 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+
+import com.example.android.top10downloadedappnew.activities.HomescreenActivity;
+import com.example.android.top10downloadedappnew.activities.MainActivity;
+import com.example.android.top10downloadedappnew.models.HtmlApp;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -38,11 +42,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.android.top10downloadedappnew.R;
-import com.example.android.top10downloadedappnew.fragment.AlbumFragment;
-import com.example.android.top10downloadedappnew.fragment.FreeAppFragment;
-import com.example.android.top10downloadedappnew.fragment.HomeFragment;
-import com.example.android.top10downloadedappnew.fragment.PaidFragment;
-import com.example.android.top10downloadedappnew.fragment.SongFragment;
+import com.example.android.top10downloadedappnew.fragments.AlbumFragment;
+import com.example.android.top10downloadedappnew.fragments.FreeAppFragment;
+import com.example.android.top10downloadedappnew.fragments.HomeFragment;
+import com.example.android.top10downloadedappnew.fragments.PaidFragment;
+import com.example.android.top10downloadedappnew.fragments.SongFragment;
 import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,13 +56,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class DataInitialization {
@@ -175,6 +177,8 @@ public class DataInitialization {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
+                Log.d(TAG, "onNavigationItemSelected: reached setupNagivationview method");
+                
                 if (htmlAppAdapter != null) {
                     saveArrayList(activityTitles[navItemIndex]);
                 }
@@ -233,7 +237,7 @@ public class DataInitialization {
 
     }
 
-    public void alertSignOut() {
+    private void alertSignOut() {
         AlertDialog.Builder alertDialog2 = new
                 AlertDialog.Builder(
                 m_fragmentActivity);
@@ -242,7 +246,7 @@ public class DataInitialization {
         alertDialog2.setTitle("Confirm SignOut");
 
         // Setting Dialog Message
-        alertDialog2.setMessage("Are you sure you want to Signout?");
+        alertDialog2.setMessage("Are you sure you want to Sign out?");
 
         // Setting Positive "Yes" Btn
         alertDialog2.setPositiveButton("YES",
@@ -252,9 +256,9 @@ public class DataInitialization {
                         FirebaseAuth.getInstance().signOut();
                         try {
                             Intent i = new Intent(m_fragmentActivity,
-                                    HomeScreen.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                    Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    HomescreenActivity.class);
+//                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+//                                    Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             m_fragmentActivity.startActivity(i);
                         } finally {
                             m_fragmentActivity.finish();
@@ -445,7 +449,7 @@ public class DataInitialization {
         return drawer;
     }
 
-       public void saveArrayList(String key) {
+    public void saveArrayList(String key) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(m_fragmentActivity);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -458,7 +462,7 @@ public class DataInitialization {
         editor.apply();
     }
 
-    public ArrayList<HtmlApp> getArrayList(String key) {
+    private ArrayList<HtmlApp> getArrayList(String key) {
 //        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(m_fragmentActivity);
 //        Gson gson = new Gson();
 //        String json = sharedPreferences.getString(key, null);

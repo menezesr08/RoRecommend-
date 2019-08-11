@@ -6,7 +6,7 @@
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".main_classes.RegistrationActivity">
+    tools:context=".activities.RegistrationActivity">
 
     <TextView
         android:layout_width="wrap_content"

@@ -1,4 +1,4 @@
-package com.example.android.top10downloadedappnew.fragment;
+package com.example.android.top10downloadedappnew.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,17 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.top10downloadedappnew.R;
-import com.example.android.top10downloadedappnew.main_classes.DataInitialization;
+import com.example.android.top10downloadedappnew.data.DataInitialization;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PaidFragment.OnFragmentInteractionListener} interface
+ * {@link SongFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PaidFragment#newInstance} factory method to
+ * Use the {@link SongFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PaidFragment extends Fragment {
+public class SongFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,7 +36,7 @@ public class PaidFragment extends Fragment {
     private DataInitialization dataInitialization;
     private OnFragmentInteractionListener mListener;
 
-    public PaidFragment() {
+    public SongFragment() {
         // Required empty public constructor
     }
 
@@ -46,11 +46,11 @@ public class PaidFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PaidFragment.
+     * @return A new instance of fragment SongFragment.
      */
 
-    public static PaidFragment newInstance(String param1, String param2) {
-        PaidFragment fragment = new PaidFragment();
+    public static SongFragment newInstance(String param1, String param2) {
+        SongFragment fragment = new SongFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,8 +67,6 @@ public class PaidFragment extends Fragment {
         }
 
         setHasOptionsMenu(true);
-
-
     }
 
     @Override
@@ -76,16 +74,15 @@ public class PaidFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.activity_main, container, false);
+
         if(getActivity() != null){
             dataInitialization = new DataInitialization(v, getActivity());
         }else{
             throw new NullPointerException();
         }
-        dataInitialization.downloadURL("https://play.google.com/store/apps/collection/topselling_paid?hl=en_GB");
-        dataInitialization.getTitleTextView().setText(R.string.top_paid_apps);
-        dataInitialization.getCaptionTextView().setText(R.string.app_caption);
-
-
+        dataInitialization.downloadURL("https://play.google.com/store/music/collection/topselling_paid_track?hl=en_GB");
+        dataInitialization.getTitleTextView().setText(R.string.top_songs);
+        dataInitialization.getCaptionTextView().setText(R.string.music_caption);
 
         return v;
     }
@@ -112,18 +109,15 @@ public class PaidFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.feeds_menu, menu);
-
         inflater.inflate(R.menu.search_menu, menu);
 
         dataInitialization.filter(menu);
-
         if(feedLimit == 10){
             menu.findItem(R.id.mnu10).setChecked(true);
         }else{
             menu.findItem(R.id.mnu25).setChecked(true);
         }
     }
-
 
 
     /**
