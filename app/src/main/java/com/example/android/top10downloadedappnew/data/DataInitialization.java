@@ -1,6 +1,7 @@
 package com.example.android.top10downloadedappnew.data;
 /**
  * Main class which contains the framework of the app and the main logic.
+ *
  * @author Rohan Menezes
  */
 
@@ -30,6 +31,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -91,7 +93,7 @@ public class DataInitialization {
     private Handler mHandler;
     private String[] activityTitles;
     private ProgressBar progressBar;
-    private ArrayList<HtmlApp> favourites;
+    private ArrayList<String> favourites;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private static String userID;
@@ -112,20 +114,7 @@ public class DataInitialization {
         setUpNavigationView();
         setUpRecyclerView();
         //Retrieves a list of favourite apps which are saved in the system
-        //favourites = getArrayList(activityTitles[navItemIndex]);
-
-        //Retrieves the User ID which is used to store information in the database.
-        //userID = PreferenceManager.getDefaultSharedPreferences(fragmentActivity).getString("userID", "defaultStringIfNothingFound");
-       //Creates an instance of the FireBase Database
-
-
-//        //If the user does not have an ID (new user), a new ID is created.
-//        if (userID.equalsIgnoreCase("defaultStringIfNothingFound")) {
-//            Log.d(TAG, "DataInitialization: userID is null");
-//            myRef = database.getReference();
-//            userID = myRef.push().getKey();
-//            PreferenceManager.getDefaultSharedPreferences(fragmentActivity).edit().putString("userID", userID).apply();
-//        }
+        favourites = favouriteAppNames(activityTitles[navItemIndex]);
     }
 
     private void setupUI() {
@@ -153,6 +142,7 @@ public class DataInitialization {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
     }
+
     //Uses the Glide library to set up the header background
     private void setUpHeaderBackground() {
         try {
@@ -164,6 +154,7 @@ public class DataInitialization {
         }
 
     }
+
     //Switching between different fragments
     void setUpNavigationView() {
 
@@ -176,15 +167,11 @@ public class DataInitialization {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
                 Log.d(TAG, "onNavigationItemSelected: reached setupNagivationview method");
-                
-                if (htmlAppAdapter != null) {
-                    saveArrayList(activityTitles[navItemIndex]);
-                }
 
                 database = FirebaseDatabase.getInstance();
                 myRef = database.getReference(CURRENT_TAG);
                 Log.d(TAG, "onNavigationItemSelected: myref is: " + myRef.toString());
-                myRef.child(firebaseUser.getUid()).setValue(htmlAppAdapter.getFavourites());
+                myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(htmlAppAdapter.getFavourites());
 
 
                 //Check to see which item was being clicked and perform appropriate action
@@ -282,6 +269,7 @@ public class DataInitialization {
 
 
     }
+
     //Replaces the content frame with the selected fragment
     private void loadHomeFragment() {
         selectNavMenu();
@@ -322,6 +310,7 @@ public class DataInitialization {
     private void selectNavMenu() {
         navigationView.getMenu().getItem(navItemIndex).setChecked(true);
     }
+
     //Selects the fragment depending on the item index
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
@@ -358,6 +347,7 @@ public class DataInitialization {
         recycler_View.addItemDecoration(new GridSpacingItemDecoration(2, ((MainActivity) m_fragmentActivity).dpToPx(10), true));
         recycler_View.setItemAnimator(new DefaultItemAnimator());
     }
+
     //Downloads the requested URL through JSoup Library
     public void downloadURL(String url) {
         new JsoupAsyncTask().execute(url);
@@ -370,6 +360,7 @@ public class DataInitialization {
     public TextView getCaptionTextView() {
         return caption_TextView;
     }
+
     //Uses the JSoup Library to download the URL, parse the data and hook the data to the adapter
     private class JsoupAsyncTask extends AsyncTask<String, Void, Document> {
 
@@ -394,9 +385,9 @@ public class DataInitialization {
              * it should stay favourited unless the user de-selects that item.
              */
             if (favourites != null) {
-                for (HtmlApp favouriteApp : favourites) {
+                for (String favouriteApp : favourites) {
                     for (HtmlApp htmlApp : htmlParser.getApplications()) {
-                        if (favouriteApp.getName().equalsIgnoreCase(htmlApp.getName())) {
+                        if (favouriteApp.equalsIgnoreCase(htmlApp.getName())) {
                             htmlApp.isFavourite();
                             System.out.println("App that is checked is: " + htmlApp.getName());
                             break;
@@ -406,10 +397,7 @@ public class DataInitialization {
                 }
             }
 
-
             htmlAppAdapter = new HtmlAppAdapter(m_fragmentActivity, htmlParser.getApplications());
-
-
             progressBar.setVisibility(View.INVISIBLE);
             recycler_View.setAdapter(htmlAppAdapter);
         }
@@ -447,34 +435,21 @@ public class DataInitialization {
         return drawer;
     }
 
-    public void saveArrayList(String key) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(m_fragmentActivity);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+    private ArrayList<String> favouriteAppNames(String key) {
 
-        Gson gson = new Gson();
+        // gets current user firebase ID
+        final String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
-        String json = gson.toJson(htmlAppAdapter.getFavourites());
-        Log.d(TAG, "getArrayList: List of apps to be saved is: " + json);
-        System.out.println(json);
-        editor.putString(key, json);
-        editor.apply();
-    }
-
-    private ArrayList<HtmlApp> getArrayList(String key) {
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(m_fragmentActivity);
-//        Gson gson = new Gson();
-//        String json = sharedPreferences.getString(key, null);
-//        Type type = new TypeToken<ArrayList<HtmlApp>>() {
-//        }.getType();
-//        ArrayList<HtmlApp> arrayList = gson.fromJson(json, type);
-
-//get reference
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(key).child(firebaseUser.getUid());
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            // Todo: get data from database and convert to array list
+        final ArrayList<String> appNames = new ArrayList<>();
+        // key: "home", "free App" etc etc
+        ref.child(key).child(UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                // loops through each user under the key
+                for (DataSnapshot UID : dataSnapshot.getChildren()) {
+                    appNames.add((String) UID.child("name").getValue());
+                }
             }
 
             @Override
@@ -483,7 +458,8 @@ public class DataInitialization {
             }
         });
 
-        return null;
+
+        return appNames;
     }
 
 }
