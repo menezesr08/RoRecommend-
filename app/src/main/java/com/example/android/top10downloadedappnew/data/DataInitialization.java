@@ -99,6 +99,7 @@ public class DataInitialization {
     private static String userID;
     private WanderingCubes wanderingCubes;
     private FirebaseUser firebaseUser;
+    private AlertDialog.Builder alertDialog;
 
     /** Setups the framework for the app
      *
@@ -115,6 +116,7 @@ public class DataInitialization {
         setUpRecyclerView();
         //Retrieves a list of favourite apps which are saved in the system
         favourites = favouriteAppNames(activityTitles[navItemIndex]);
+
     }
 
     private void setupUI() {
@@ -134,6 +136,8 @@ public class DataInitialization {
         progressBar.setIndeterminateDrawable(wanderingCubes);
         progressBar.setVisibility(View.VISIBLE);
         activityTitles = m_fragmentActivity.getResources().getStringArray(R.array.nav_item_activity_titles);
+        alertDialog = new AlertDialog.Builder(m_fragmentActivity);
+
     }
 
     private void setUpActionBar() {
@@ -166,7 +170,6 @@ public class DataInitialization {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-                Log.d(TAG, "onNavigationItemSelected: reached setupNagivationview method");
 
                 database = FirebaseDatabase.getInstance();
                 myRef = database.getReference(CURRENT_TAG);
@@ -198,9 +201,6 @@ public class DataInitialization {
                         CURRENT_TAG = TAG_ALBUMS;
                         break;
                     case R.id.signOut:
-                        // TODO: Figure out why activity is switching when signing out
-                        navItemIndex = 5;
-                        alertSignOut();
                         break;
                     default:
                         navItemIndex = 0;
@@ -222,54 +222,6 @@ public class DataInitialization {
 
     }
 
-    private void alertSignOut() {
-        AlertDialog.Builder alertDialog2 = new
-                AlertDialog.Builder(
-                m_fragmentActivity);
-
-        // Setting Dialog Title
-        alertDialog2.setTitle("Confirm SignOut");
-
-        // Setting Dialog Message
-        alertDialog2.setMessage("Are you sure you want to Sign out?");
-
-        // Setting Positive "Yes" Btn
-        alertDialog2.setPositiveButton("YES",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Write your code here to execute after dialog
-                        FirebaseAuth.getInstance().signOut();
-                        try {
-                            Intent i = new Intent(m_fragmentActivity,
-                                    HomescreenActivity.class);
-//                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-//                                    Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            m_fragmentActivity.startActivity(i);
-                        } finally {
-                            m_fragmentActivity.finish();
-                        }
-
-                    }
-                });
-
-        // Setting Negative "NO" Btn
-        alertDialog2.setNegativeButton("NO",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Write your code here to execute after dialog
-                        Toast.makeText(m_fragmentActivity.getApplicationContext(),
-                                "You clicked on NO", Toast.LENGTH_SHORT)
-                                .show();
-                        dialog.cancel();
-                    }
-                });
-
-        // Showing Alert Dialog
-        alertDialog2.show();
-
-
-    }
-
     //Replaces the content frame with the selected fragment
     private void loadHomeFragment() {
         selectNavMenu();
@@ -286,6 +238,8 @@ public class DataInitialization {
             public void run() {
                 // update the main content by replacing fragments
                 Fragment fragment = getHomeFragment();
+                Log.d(TAG, "run: fragment is: " + fragment.toString());
+                Log.d(TAG, "run: m_fragmentActivity is: " + m_fragmentActivity.toString());
                 FragmentTransaction fragmentTransaction = m_fragmentActivity.getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left,
                         android.R.anim.slide_out_right);

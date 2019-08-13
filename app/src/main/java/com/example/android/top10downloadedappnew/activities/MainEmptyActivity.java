@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.android.top10downloadedappnew.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +17,7 @@ public class MainEmptyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_empty);
 
+        Log.d("Empty Activity:", "onCreate: this is: " + this);
         Intent activityIntent;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {

@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,6 +86,8 @@ public class HomeFragment extends Fragment {
 
         if(getActivity() != null){
             dataInitialization = new DataInitialization(v, getActivity());
+
+            Log.d(TAG, "onCreateView: getContext is:" + getContext());
         }else{
             throw new NullPointerException();
         }
