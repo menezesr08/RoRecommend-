@@ -37,7 +37,7 @@
         <item>Top Paid Apps</item>
         <item>Top Songs</item>
         <item>Top Albums</item>
-        <item>Sign Out</item>
+        <item>Account</item>
     </string-array>
 
     <string name="activity_title_about_us">About Us</string>

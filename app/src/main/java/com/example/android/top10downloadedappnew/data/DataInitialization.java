@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 
 import com.example.android.top10downloadedappnew.activities.HomescreenActivity;
 import com.example.android.top10downloadedappnew.activities.MainActivity;
+import com.example.android.top10downloadedappnew.fragments.AccountFragment;
 import com.example.android.top10downloadedappnew.models.HtmlApp;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -88,6 +89,7 @@ public class DataInitialization {
     private static final String TAG_PAID_APPS = "Top Paid Apps";
     private static final String TAG_SONGS = "Top Songs";
     private static final String TAG_ALBUMS = "Top Albums";
+    public static final String ACCOUNT = "Account";
     public static String CURRENT_TAG = TAG_HOME;
     private DrawerLayout drawer;
     private Handler mHandler;
@@ -200,7 +202,9 @@ public class DataInitialization {
                         navItemIndex = 4;
                         CURRENT_TAG = TAG_ALBUMS;
                         break;
-                    case R.id.signOut:
+                    case R.id.account:
+                        navItemIndex = 5;
+                        CURRENT_TAG = ACCOUNT;
                         break;
                     default:
                         navItemIndex = 0;
@@ -284,15 +288,18 @@ public class DataInitialization {
                 // Songs fragment
                 SongFragment songFragment = new SongFragment();
                 return songFragment;
-
             case 4:
                 // Albums fragment
                 AlbumFragment albumFragment = new AlbumFragment();
                 return albumFragment;
+            case 5:
+                AccountFragment accountFragment = new AccountFragment();
+                return accountFragment;
             default:
                 return new HomeFragment();
         }
     }
+
 
     private void setUpRecyclerView() {
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(m_fragmentActivity, 2);
