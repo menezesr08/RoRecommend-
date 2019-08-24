@@ -5,16 +5,12 @@ package com.example.android.top10downloadedappnew.data;
  * @author Rohan Menezes
  */
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 
-import com.example.android.top10downloadedappnew.activities.HomescreenActivity;
 import com.example.android.top10downloadedappnew.activities.MainActivity;
 import com.example.android.top10downloadedappnew.fragments.AccountFragment;
+import com.example.android.top10downloadedappnew.helper.GridSpacingItemDecoration;
 import com.example.android.top10downloadedappnew.models.HtmlApp;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -41,7 +37,6 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.view.Menu;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.android.top10downloadedappnew.R;
@@ -58,7 +53,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

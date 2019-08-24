@@ -1,41 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".activities.RegistrationActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register new account" />
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/email"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#070707"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/circle"
+                android:padding="10dp"
+                android:src="@drawable/home_icon"
+                android:tint="@color/white" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Welcome to RoRecommend!"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-10dp"
+            android:rotation="45"
+            android:src="@drawable/square" />
+
+        <RelativeLayout
+            android:id="@+id/usernameRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp">
+
+            <ImageView
+                android:id="@+id/imageView_userIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#0A0A0A"
+                android:padding="8dp"
+                android:src="@drawable/img_user"
+                android:tint="@color/white" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView_userIcon"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageView_userIcon"
+                android:background="@color/editTextBG"
+                android:hint="Email"
+                android:paddingLeft="20dp"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/passwordRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/usernameRelativeLayout"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp">
+
+            <ImageView
+                android:id="@+id/imageView_passwordIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#090808"
+                android:padding="8dp"
+                android:src="@drawable/img_authentication"
+                android:tint="@color/white" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView_passwordIcon"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageView_passwordIcon"
+                android:background="@color/editTextBG"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="20dp"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/confirmPasswordRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passwordRelativeLayout"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp">
+
+            <ImageView
+                android:id="@+id/imageView_confirmPasswordIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#090808"
+                android:padding="8dp"
+                android:src="@drawable/img_authentication"
+                android:tint="@color/white" />
+
+            <EditText
+                android:id="@+id/confirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView_confirmPasswordIcon"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageView_confirmPasswordIcon"
+                android:background="@color/editTextBG"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:paddingLeft="20dp"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/regBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/confirmPasswordRelativeLayout"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"
+            android:background="#0C0C0C"
+            android:fontFamily="sans-serif-medium"
+            android:text="SIGN UP"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/regBtn"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:layerType="software"
+            android:src="@drawable/dash" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

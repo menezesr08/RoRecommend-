@@ -18,9 +18,6 @@ import com.example.android.top10downloadedappnew.R;
 import com.example.android.top10downloadedappnew.activities.HomescreenActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
-// Todo: create unique activity for fragments account (make it basic, we'll change later)
-// TODO: add a button on nav draw to accounts fragment and link it
-// TODO: add a button to fragments account to actually sign out
 
 public class AccountFragment extends Fragment {
     private Button button;

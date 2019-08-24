@@ -1,8 +1,10 @@
 package com.example.android.top10downloadedappnew.activities;
 
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,16 +15,18 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.android.top10downloadedappnew.R;
+import com.example.android.top10downloadedappnew.data.FirebaseAuthentication;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 
 public class RegistrationActivity extends AppCompatActivity {
     // Ui elements
-    private EditText emailTV, passwordTV;
+    private EditText emailTV, passwordTV, confirmPassTV;
     private Button regBtn;
-    private ProgressBar progressBar;
+
     private final String TAG = "RegistrationActivity";
     // Auth
     private FirebaseAuth mAuth;
@@ -45,8 +49,8 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
     }
+
     private void registerNewUser() {
-        progressBar.setVisibility(View.VISIBLE);
 
         String email, password;
         email = emailTV.getText().toString().trim();
@@ -61,29 +65,14 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.GONE);
-
-                            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), "Registration failed! Please try again later", Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
+        new FirebaseAuthentication(mAuth).createAccount(email, password, this);
     }
 
     private void initializeUI() {
         emailTV = findViewById(R.id.email);
         passwordTV = findViewById(R.id.password);
-        regBtn = findViewById(R.id.register);
-        progressBar = findViewById(R.id.progressBar);
+        confirmPassTV = findViewById(R.id.confirmPassword);
+        regBtn = findViewById(R.id.regBtn);
+
     }
 }

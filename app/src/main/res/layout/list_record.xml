@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.example.android.top10downloadedappnew.data.ProportionalImageView
+            <com.example.android.top10downloadedappnew.helper.ProportionalImageView
                 android:id="@+id/thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/album_cover_height"

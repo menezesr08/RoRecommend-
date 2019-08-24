@@ -1,4 +1,4 @@
-package com.example.android.top10downloadedappnew.data;
+package com.example.android.top10downloadedappnew.helper;
 /**
  * The design/layout of the recyclerview
  * @author Rohan Menezes
